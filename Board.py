@@ -12,23 +12,13 @@ Winning condition: Player X (A or B) has 4 diagonal, horizontal, or vertical nei
 [None, None, None]
 ]
 """
-
-def printRow(r):
-    res = "|"
-    for x in r:
-        if x==None:
-            res += " " 
-        elif x=="A":
-            res += '\x1b[0;37;41m' + x + '\x1b[0m'
-        else: # x is B
-            res += '\x1b[6;30;42m' + x + '\x1b[0m'
-        res += "|"
-    return res           
+      
 
 
 class Board:
-    def __init__(self):
+    def __init__(self, printer):
         self.squares = list(list(None for i in range(8)) for j in range(8))
+        self.printer = printer
 
     """
     putCoin takes playerChar and i, j. Places coin in position (i,j) of the board if self.canPlace(self, i, j) returns true.
@@ -74,7 +64,7 @@ class Board:
 
         s = ""
         for i, row in enumerate(self.squares):
-            s += str(i) + ":" + printRow(row) + '\n'
+            s += str(i) + ":" + self.printer.printRow(row) + '\n'
         s += "   "
         
         for i in range(self.size()):
