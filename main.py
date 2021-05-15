@@ -23,7 +23,15 @@ class Game:
             
 
 
-            
+def printRow(r):
+    res = "|"
+    for x in r:
+        if x==None:
+            res += " " 
+        else:
+            res += x
+        res += "|"
+    return res           
 
 
 
@@ -84,11 +92,17 @@ class Board:
 
     def canPlace(self, i, j):
         return self.squares[i][j] == None and ( i==7 or self.squares[i+1][j] != None )
-
+    def size(self):
+        return len(self.squares)
     def __str__(self):
+
         s = ""
         for i, row in enumerate(self.squares):
-            s += str(i) + ":" + str(row) + '\n'
+            s += str(i) + ":" + printRow(row) + '\n'
+        s += "   "
+        
+        for i in range(self.size()):
+            s += str(i) + " "
         return s
 
 
